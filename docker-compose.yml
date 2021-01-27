@@ -1,12 +1,10 @@
 version: '3.4'
 
 services:
-  site:
+  web:
     build:
       context: .
-      target: test-target
-      args:
-        npm_install_command: install
+
     volumes:
       # This bind mount allows changes on the host file system to affect the container.
       # Saving a code file can cause an incremental build, a hot reload in the browser,
@@ -15,19 +13,10 @@ services:
       # Changes on the host, like saving a code file, immediately affect the container.
       # Changes within the container, like build output, make their way back to the host,
       # but are not strictly synchronized.
-      - .:/usr/src/app:delegated
+      - .:/app:delegated
+      #- node_modules_nextjs:/app/node_modules
     ports:
       - 3000:3000
-      - 9229:9229
     command: npm run dev
-  storybook:
-    build:
-      context: .
-      target: test-target
-      args:
-        npm_install_command: install
-    volumes:
-      - .:/usr/src/app:delegated
-    ports:
-      - 6006:6006
-    command: npm run storybook
+volumes:
+  node_modules_nextjs:
