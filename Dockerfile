@@ -1,5 +1,6 @@
 # Test
 FROM node:alpine
+RUN apk add --no-cache --virtual .gyp python make g++
 ENV NODE_ENV=development
 WORKDIR /app
 

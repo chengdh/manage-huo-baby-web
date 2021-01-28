@@ -1,16 +1,13 @@
 import React, { useState } from "react";
-
+import { Button } from 'antd';
 export default function MyLayout({ children }) {
   const [counter, setCounter] = useState(0);
 
   return (
     <>
-      <p>      
-        <button onClick={() => setCounter(counter + 1)}>
-          Clicked {counter} Times
-        </button>
-      </p>
-
+      <Button onClick={() => setCounter(counter + 1)} type="primary">
+        Clicked {counter} Times
+    </Button>
       {children}
     </>
   )

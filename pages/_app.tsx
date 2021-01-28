@@ -1,4 +1,5 @@
 import React from 'react'
+import "../styles/antd.less"
 import MyLayout from '../layouts/MyLayout'
 
 function MyApp({ Component, pageProps }) {
