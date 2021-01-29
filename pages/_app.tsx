@@ -1,15 +1,16 @@
-import React from 'react'
-import "../styles/antd.less"
-import MyLayout from '../layouts/MyLayout'
+import { AppProps } from 'next/app';
+import React from 'react';
+import AppLayout from '../layouts/AppLayout';
+require("../styles/antd.less");
 
-function MyApp({ Component, pageProps }) {
+function HmbApp({ Component, pageProps }: AppProps) {
+
   return (
     <div>
-      <h2>this is a test</h2>
-      <MyLayout>
+      <AppLayout>
         <Component {...pageProps} />
-      </MyLayout>
-    </div>)
+      </AppLayout>
+    </div>);
 }
 
 // Only uncomment this method if you have blocking data requirements for
@@ -24,4 +25,4 @@ function MyApp({ Component, pageProps }) {
 //   return { ...appProps }
 // }
 
-export default MyApp
+export default HmbApp

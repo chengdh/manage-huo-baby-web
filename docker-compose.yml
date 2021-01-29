@@ -17,6 +17,7 @@ services:
       #- node_modules_nextjs:/app/node_modules
     ports:
       - 3000:3000
+      - 9229:9229
     command: npm run dev
 volumes:
   node_modules_nextjs:
