@@ -1,7 +1,7 @@
 import { AppProps } from 'next/app';
 import React from 'react';
 import AppLayout from '../layouts/AppLayout';
-require("../styles/antd.less");
+import "antd/dist/antd.css";
 
 function HmbApp({ Component, pageProps }: AppProps) {
 
