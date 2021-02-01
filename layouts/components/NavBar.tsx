@@ -1,9 +1,9 @@
-import React from "react";
-import { HomeOutlined, BookOutlined, FormOutlined, LoginOutlined, MenuFoldOutlined } from "@ant-design/icons";
-import { Button, Col, Menu, Row, Typography } from "antd";
-import { Header } from "antd/lib/layout/layout";
+import { BookOutlined, FormOutlined, HomeOutlined, LoginOutlined } from "@ant-design/icons";
+import { Col, Menu, Row, Typography } from "antd";
 import Link from "next/link";
-interface NavBarProps {
+import React from "react";
+
+type NavBarProps = {
     handleMobileDrawerOpen(): void,
     handleMobileDrawerClose(): void,
     mobileDrawerOpen: boolean,
@@ -13,8 +13,7 @@ interface NavBarProps {
     appName: string
 
 };
-
-function NavBar(props: NavBarProps) {
+const NavBar: React.FC<NavBarProps> = (props) => {
 
     const LOGO_URL = 'https://gw.alipayobjects.com/zos/rmsportal/gVAKqIsuJCepKNbgbSwE.svg';
     const {
@@ -31,7 +30,7 @@ function NavBar(props: NavBarProps) {
         {
             link: "/",
             name: "Home",
-            icon: (<HomeOutlined />)
+            icon: <HomeOutlined />
         },
         {
             link: "/blog",
@@ -50,7 +49,7 @@ function NavBar(props: NavBarProps) {
         }
     ];
     const menu = (
-        <Menu mode="horizontal">
+        <Menu mode="horizontal" >
             {menuItems.map(element => {
                 if (element.link) {
                     return (
@@ -95,7 +94,7 @@ function NavBar(props: NavBarProps) {
                 selectedItem={selectedTab}
                 onClose={handleMobileDrawerClose}
             /> */}
-
+            </div>
 
             <style jsx>{`
             #header {
@@ -103,61 +102,45 @@ function NavBar(props: NavBarProps) {
                 position: relative;
                 z-index: 10;
                 height: 64px;
-              }
+            }
               
-              #logo {
+            #logo {
                 overflow: hidden;
                 padding-left: 40px;
                 float: left;
                 line-height: 64px;
                 text-decoration: none;
                 height: 64px;
-                img {
+            }
+            #logo  img {
                   display: inline;
                   vertical-align: middle;
                   margin-right: 16px;
                   width: 32px;
                 }
-                span {
+            #logo  span {
                   color: @primary-color;
                   outline: none;
                   font-size: 14px;
                   line-height: 28px;
-                }
               }
               
-              #header-meta {
+            #header-meta {
                 padding-right: 40px;
               }
               
-              #menu {
+            #menu {
                 float: right;
                 overflow: hidden;
                 height: 64px;
-                .ant-menu {
-                  line-height: 60px;
-                }
-                .ant-menu-horizontal {
-                  border-bottom: none ;
-                  &>.ant-menu-item {
-                    border-top: 2px solid transparent;
-                    &:hover {
-                      border-top: 2px solid @primary-color;
-                      border-bottom: 2px solid transparent;
-                    }
-                  }
-                  &>.ant-menu-item-selected {
-                    border-top: 2px solid @primary-color;
-                    border-bottom: 2px solid transparent;
-                    a {
-                      color: @primary-color;
-                    }
-                  }
-                }
               }
-
+            #menu  :global(.ant-menu){
+                  line-height: 60px;
+              }
+            #menu :global(.ant-menu-horizontal){
+                  border-bottom: none ;
+              }
             `}</style>
-            </div>
         </div>
     );
 }
