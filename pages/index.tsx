@@ -1,14 +1,18 @@
 import { Header } from 'antd/lib/layout/layout';
+import { NextPage } from 'next';
 import React, { useCallback, useState } from 'react';
 import NavBar from '../layouts/components/NavBar';
 import smoothScrollTop from '../shared/function/smoothScrollTop';
 
-function Home(props : {classes: object,appName:string}) {
-  const {appName}  = props;
-  const [selectedTab, setSelectedTab] = useState(null);
+type HomeProps = {
+  appName: string
+}
+
+const Home: NextPage<HomeProps> = ({ appName }) => {
+  const [selectedTab, setSelectedTab] = useState<string | null>(null);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [blogPosts, setBlogPosts] = useState([]);
-  const [dialogOpen, setDialogOpen] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState<string | null>(null);
   const [isCookieRulesDialogOpen, setIsCookieRulesDialogOpen] = useState(false);
 
   const selectHome = useCallback(() => {
@@ -78,6 +82,7 @@ function Home(props : {classes: object,appName:string}) {
         onClose={handleCookieRulesDialogClose}
       /> */}
       <NavBar
+        appName={appName}
         selectedTab={selectedTab}
         selectTab={setSelectedTab}
         openLoginDialog={openLoginDialog}
@@ -94,9 +99,9 @@ function Home(props : {classes: object,appName:string}) {
       <Footer /> */}
     </>
   );
-}
+};
 
 Home.getInitialProps = () => {
-  return { appName: "管货宝"};
+  return { appName: "管货宝" };
 };
 export default Home;

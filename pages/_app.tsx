@@ -1,16 +1,15 @@
+import "antd/dist/antd.css";
 import { AppProps } from 'next/app';
 import React from 'react';
-import AppLayout from '../layouts/AppLayout';
-import "antd/dist/antd.css";
+import PrimaryLayout from "../layouts/PrimaryLayout";
 
 function HmbApp({ Component, pageProps }: AppProps) {
 
   return (
-    <div>
-      <AppLayout>
-        <Component {...pageProps} />
-      </AppLayout>
-    </div>);
+    <PrimaryLayout>
+      <Component {...pageProps} />
+    </PrimaryLayout>
+  )
 }
 
 // Only uncomment this method if you have blocking data requirements for
