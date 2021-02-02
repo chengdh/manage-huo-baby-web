@@ -1,16 +1,13 @@
 import "antd/dist/antd.css";
 import { AppProps } from 'next/app';
 import React from 'react';
-import PrimaryLayout from "../layouts/PrimaryLayout";
+import DefaultLayout from "../app/components/layouts/Default/DefaultLayout";
 
-function HmbApp({ Component, pageProps }: AppProps) {
-
-  return (
-    <PrimaryLayout>
-      <Component {...pageProps} />
-    </PrimaryLayout>
-  )
-}
+const HmbApp: React.FC<AppProps> = ({ Component, pageProps }) => ( 
+  <DefaultLayout>
+    <Component {...pageProps} />
+  </DefaultLayout>
+);
 
 // Only uncomment this method if you have blocking data requirements for
 // every single page in your application. This disables the ability to
