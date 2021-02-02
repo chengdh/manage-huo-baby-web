@@ -11,6 +11,7 @@
     "@ant-design/icons": "^4.4.0",
     "antd": "^4.11.2",
     "next": "^10.0.5",
+    "next-layout": "chengdh/next-layout#master",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },

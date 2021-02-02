@@ -1,6 +1,7 @@
 # Test
 FROM node:alpine
 RUN apk add --no-cache --virtual .gyp python make g++
+RUN apk add --no-cache bash git openssh
 ENV NODE_ENV=development
 WORKDIR /app
 

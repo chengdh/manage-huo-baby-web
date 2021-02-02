@@ -1,3 +1,4 @@
+@value primary-color: red; 
 .header {
     background-color: #fff;
     position: relative;
@@ -44,4 +45,22 @@
 
 .menu :global(.ant-menu-horizontal) {
     border-bottom: none;
+}
+
+.menuitem {
+    border-top: 2px solid transparent;
+}
+
+.menuitem:hover {
+    border-top: 2px solid primary-color;
+    border-bottom: 2px solid transparent;
+}
+
+.menu :global(.ant-menu-item-selected) {
+    border-top: 2px solid primary-color;
+    border-bottom: 2px solid transparent;
+}
+
+.menu :global(.ant-menu-item-selected) :global(a) {
+    color: primary-color;
 }

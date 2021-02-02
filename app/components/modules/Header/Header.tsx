@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = (props) => {
             {menuItems.map(element => {
                 if (element.link) {
                     return (
-                        <Menu.Item key={element.name}>
+                        <Menu.Item key={element.name} className={styles.menuitem}>
                             <Link
                                 href={element.link}
                                 onClick={handleMobileDrawerClose}
@@ -70,7 +70,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                 }
                 return (
 
-                    <Menu.Item key={element.name}>
+                    <Menu.Item key={element.name} className={styles.menuitem}>
                         {element.name}
                     </Menu.Item>
                 );
