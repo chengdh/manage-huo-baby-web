@@ -1,12 +1,14 @@
 import "antd/dist/antd.css";
-import { AppProps } from 'next/app';
+import App, { AppProps } from 'next/app';
 import React from 'react';
 import DefaultLayout from "../app/components/layouts/Default/DefaultLayout";
+import { LayoutTree } from '@chengdh/next-layout';
+
 
 const HmbApp: React.FC<AppProps> = ({ Component, pageProps }) => ( 
-  <DefaultLayout>
-    <Component {...pageProps} />
-  </DefaultLayout>
+  <LayoutTree
+      Component={ Component }
+      pageProps={ pageProps } />
 );
 
 // Only uncomment this method if you have blocking data requirements for

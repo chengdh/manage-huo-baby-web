@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.4.0",
+    "@chengdh/next-layout": "2.2.3",
     "antd": "^4.11.2",
     "next": "^10.0.5",
     "next-layout": "chengdh/next-layout#master",
