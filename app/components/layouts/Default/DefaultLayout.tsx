@@ -9,10 +9,10 @@ interface LayoutProps {
 
 const DefaultLayout: React.FC<LayoutProps> = ({ children }) => (
   <Layout>
-    <Layout.Header>
+    <Layout.Header style={{padding: 0, position: 'fixed', zIndex: 1, width: '100%' }}>
       <NavBar />
     </Layout.Header>
-    <Layout.Content>
+    <Layout.Content style={{marginTop: 64}}>
       {children}
     </Layout.Content>
     <Layout.Footer>
