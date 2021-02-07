@@ -48,15 +48,15 @@ const Banner: React.FC = () => {
                     </QueueAnim>
                 </Col>
 
-                <Col xxl={12} xl={12} lg={12} md={12} sm={24} xs={24}>
+                <Col xxl={12} xl={12} lg={12} md={12} sm={0} xs={0}>
                     <TweenOne animation={{ opacity: 1 }} className={styles.bannerImageWrapper}>
                         <BannerSVGAnim />
                     </TweenOne>
                 </Col>
             </Row >
             <WaveBorder
-                upperColor={"gray"}
-                lowerColor="#FFFFFF"
+                upperColor={"#f0f2f5"}
+                lowerColor="blue"
                 className={"waveBorder"}
                 animationNegativeDelay={2}
             />
