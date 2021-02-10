@@ -1,8 +1,7 @@
 import { Col, Row } from 'antd';
 import QueueAnim from 'rc-queue-anim';
-import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
-import TweenOne from 'rc-tween-one';
 import React, { useState } from 'react';
+import styles from "./FeatureSection.module.css";
 
 const featuresCN = [
     {
@@ -106,17 +105,17 @@ const FeatureSection: React.FC = () => {
     const children: React.ReactNode[] = featuresCN.map((item, i) => {
         const isHover = hoverNum === i;
         return (
-            <div>
-                <div className="page1-image"
+            <div className={styles.featureWrapper} key={`feature-${i}`}>
+                <div className={styles.featureImageWrapper}
                     style={{
                         boxShadow: `${isHover ? '0 12px 24px' :
                             '0 6px 12px'} ${item.shadowColor}`,
                     }}
                 >
-                    <img src={item.src} alt="img" style={i === 4 ? { marginLeft: -15 } : {}} />
+                    <img className={styles.featureImage} src={item.src} alt="img" style={i === 4 ? { marginLeft: -15 } : {}} />
                 </div>
-                <h3>{item.title}</h3>
-                <p>{item.content}</p>
+                <h3 className={styles.featureTitle}>{item.title}</h3>
+                <p className={styles.featureSubtitle}>{item.content}</p>
             </div>
         );
     });
@@ -125,7 +124,6 @@ const FeatureSection: React.FC = () => {
         return (
             <Col xxl={8} xl={8} lg={8} md={8} sm={24} xs={24}>
                 <QueueAnim
-                    className="page1-box-wrapper"
                     key={i.toString()}
                     type="bottom"
                     leaveReverse
@@ -138,13 +136,13 @@ const FeatureSection: React.FC = () => {
         );
     });
     return (
-        <div className="home-page-wrapper" id="page1-wrapper">
-            <h2>What can <span>Pro</span> do for you </h2>
-            <div className="title-line-wrapper page1-line">
-                <div className="title-line" />
+        <div className={styles.featureSectionWrapper}>
+            <h2 className={styles.title}>What can <span>Pro</span> do for you </h2>
+            <div className={styles.titleLineWrapper}>
+                <div className={styles.titleLine} />
             </div>
 
-            <Row className="home-page page1" >
+            <Row >
                 {childrenWithAnims}
             </Row >
         </div>

@@ -1,0 +1,75 @@
+/* 容器 */
+
+.featureSectionWrapper {
+    height: 960px;
+}
+
+/* 标题 */
+
+.title {
+    color: #314659;
+    font-weight: 300;
+    font-size: 28px;
+    letter-spacing: .6px;
+    text-align: center;
+}
+
+.titleLineWrapper {
+    width: 312px;
+    margin: 24px auto 76px;
+    height: 2px;
+    overflow: hidden;
+}
+
+.titleLine {
+    animation: featureTitleLine 3s ease-in-out 1.5s infinite;
+    width: 64px;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(24, 144, 255, 0) 0, #1890ff);
+    transform: translateX(-64px);
+}
+
+.featureWrapper {
+    width: 194px;
+    margin: auto;
+    text-align: center;
+}
+
+.featureImageWrapper {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: 20px auto 32px;
+    background: #fff;
+    border-radius: 40px;
+    transition: box-shadow .3s ease-out, transform .3s ease-out;
+}
+
+.featureImage {
+    vertical-align: middle;
+    border-style: none;
+}
+
+.freatureTitle {
+    margin: 8px auto;
+    color: #0d1a26;
+    font-size: 16px;
+}
+
+.featureSubtitle {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+@keyframes featureTitleLine {
+    0%, 25% {
+        transform: translateX(-64px);
+    }
+    75%, 100% {
+        transform: translateX(376px);
+    }
+}
