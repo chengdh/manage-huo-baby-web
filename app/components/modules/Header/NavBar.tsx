@@ -87,6 +87,7 @@ const NavBar: React.FC = () => {
         },
         {
             name: "登录",
+            link: "/login",
             onClick: openLoginDialog,
             icon: <LoginOutlined />
         }

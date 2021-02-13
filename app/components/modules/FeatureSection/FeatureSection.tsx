@@ -107,15 +107,18 @@ const FeatureSection: React.FC = () => {
         return (
             <div className={styles.featureWrapper} key={`feature-${i}`}>
                 <div className={styles.featureImageWrapper}
+                    key={`feature-image-wrapper-${i}`}
                     style={{
                         boxShadow: `${isHover ? '0 12px 24px' :
                             '0 6px 12px'} ${item.shadowColor}`,
                     }}
                 >
-                    <img className={styles.featureImage} src={item.src} alt="img" style={i === 4 ? { marginLeft: -15 } : {}} />
+                    <img 
+                        key={`feature-image-${i}`}
+                        className={styles.featureImage} src={item.src} alt="img" style={i === 4 ? { marginLeft: -15 } : {}} />
                 </div>
-                <h3 className={styles.featureTitle}>{item.title}</h3>
-                <p className={styles.featureSubtitle}>{item.content}</p>
+                <h3 key={`feature-title-${i}`} className={styles.featureTitle}>{item.title}</h3>
+                <p  key={`feature-subtitle-${i}`} className={styles.featureSubtitle}>{item.content}</p>
             </div>
         );
     });
