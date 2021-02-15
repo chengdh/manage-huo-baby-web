@@ -6,7 +6,10 @@ import React, { useCallback, useState } from "react";
 import smoothScrollTop from "../../../utils/smoothScrollTop";
 import { appName } from "../../../constants/constants";
 import NavDrawer from "./NavDrawer";
-
+// import AuthingDialog from "../Authing/AuthingDialog";
+import dynamic from 'next/dynamic';
+const AuthingDialog = dynamic(() => import("../Authing/AuthingDialog"), { ssr: false });
+const GuardScenes = dynamic(() => import("@authing/react-ui-components").then((mod) => mod.GuardScenes) as any, { ssr: false });
 
 const NavBar: React.FC = () => {
     const [selectedTab, setSelectedTab] = useState<string | null>(null);
@@ -87,7 +90,7 @@ const NavBar: React.FC = () => {
         },
         {
             name: "登录",
-            link: "/login",
+            // link: "/login",
             onClick: openLoginDialog,
             icon: <LoginOutlined />
         }
@@ -107,7 +110,7 @@ const NavBar: React.FC = () => {
                 return (
 
                     <Menu.Item key={element.name} className={styles.menuitem}>
-                        {element.name}
+                        <a onClick={element.onClick}>{element.name}</a>
                     </Menu.Item>
                 );
             })}
@@ -116,8 +119,13 @@ const NavBar: React.FC = () => {
     );
     return (
         <div className={styles.header} >
-            <Row>
 
+            <AuthingDialog
+                dialogOpen={dialogOpen}
+                title={appName}
+                closeDialog={closeDialog}
+                defaultScenes={GuardScenes.Login} />
+            <Row>
                 {/* 图标及app名称*/}
                 <Col xxl={4} xl={5} lg={8} md={8} sm={20} xs={20}>
                     <div className={styles.logo}>
@@ -134,7 +142,7 @@ const NavBar: React.FC = () => {
                         alignItems: "center",
                         height: "64px"
                     }}>
-                        <Button icon={<MenuFoldOutlined  onClick={handleMobileDrawerOpen} />} />
+                        <Button icon={<MenuFoldOutlined onClick={handleMobileDrawerOpen} />} />
                     </div>
                 </Col>
                 <Col xxl={20} xl={19} lg={16} md={16} sm={0} xs={0}>
