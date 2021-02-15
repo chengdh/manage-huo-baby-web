@@ -6,7 +6,8 @@ import { appName } from "../../../constants/constants";
 type MenuItemType = {
     link?: string,
     name: string,
-    icon: React.ReactNode
+    icon: React.ReactNode,
+    onClick?: () => void
 
 };
 interface NavDrawerProps {
@@ -52,7 +53,7 @@ const NavDrawer: React.FC<NavDrawerProps> = ({ width, visible, onClose, menuItem
                     }
                     return (
                         <Menu.Item key={element.name} icon={element.icon}>
-                            <a onClick={onClose}>{element.name} </a>
+                            <a onClick={element.onClick}>{element.name} </a>
                         </Menu.Item>
                     )
                 })}
