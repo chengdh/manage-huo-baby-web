@@ -54,12 +54,12 @@ const Banner: React.FC = () => {
                     </TweenOne>
                 </Col>
             </Row >
-            <WaveBorder
+            {/* <WaveBorder
                 upperColor={"#f0f2f5"}
                 lowerColor="blue"
                 className={"waveBorder"}
                 animationNegativeDelay={2}
-            />
+            /> */}
         </>
     );
 }

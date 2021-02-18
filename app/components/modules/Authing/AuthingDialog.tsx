@@ -25,7 +25,7 @@ const AuthingDialog: React.FC<AuthingDialogProps> = ({ title, dialogOpen, closeD
     }
     const _onClose = useCallback(() => {
         closeDialog();
-    }, [closeDialog, dialogOpen]);
+    }, [closeDialog]);
 
     const printDialog = useCallback(() => {
         return (<AuthingGuard
