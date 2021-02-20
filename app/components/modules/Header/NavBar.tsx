@@ -6,6 +6,8 @@ import React, { useCallback, useState } from "react";
 import smoothScrollTop from "../../../utils/smoothScrollTop";
 import { appName } from "../../../constants/constants";
 import NavDrawer from "./NavDrawer";
+import { useAuth } from "react-use-auth";
+
 import dynamic from 'next/dynamic';
 const AuthingDialog = dynamic(() => import("../Authing/AuthingDialog"), { ssr: false });
 
@@ -15,6 +17,8 @@ const NavBar: React.FC = () => {
     const [blogPosts, setBlogPosts] = useState([]);
     const [dialogOpen, setDialogOpen] = useState<string | null>(null);
     const [isCookieRulesDialogOpen, setIsCookieRulesDialogOpen] = useState(false);
+
+    const { isAuthenticated, login, logout } = useAuth();
 
     const selectHome = useCallback(() => {
         smoothScrollTop();
@@ -83,13 +87,13 @@ const NavBar: React.FC = () => {
         },
         {
             name: "注册",
-            onClick: openRegisterDialog,
+            onClick: login,
             icon: <FormOutlined />
         },
         {
             name: "登录",
             // link: "/login",
-            onClick: openLoginDialog,
+            onClick: login,
             icon: <LoginOutlined />
         }
     ];

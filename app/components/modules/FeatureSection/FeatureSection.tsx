@@ -125,7 +125,7 @@ const FeatureSection: React.FC = () => {
 
     const childrenWithAnims: React.ReactNode = children.map((item, i) => {
         return (
-            <Col xxl={8} xl={8} lg={8} md={8} sm={24} xs={24}>
+            <Col xxl={8} xl={8} lg={8} md={8} sm={24} xs={24} key={`feature-col-${i}`}>
                 <QueueAnim
                     key={i.toString()}
                     type="bottom"
