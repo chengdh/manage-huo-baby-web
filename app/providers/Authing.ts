@@ -1,22 +1,17 @@
 
 // Wrapper that provides a common interface for different providers
 
-import { UserConfig, User } from "@authing/native-js-ui-components";
+import { UserConfig, User, AuthingGuard, AuthenticationClient, GuardMode } from "@authing/native-js-ui-components";
 import { AuthProviderClass, AuthOptions, ProviderOptions } from "react-use-auth/dist/types";
 import { appName } from "../constants/constants";
-import dynamic from 'next/dynamic';
-const AuthingGuard = dynamic(() => import("@authing/native-js-ui-components").then(mod => mod.AuthingGuard), { ssr: false });
-const GuardMode = dynamic(() => import("@authing/native-js-ui-components").then(mod => mod.GuardMode), { ssr: false });
 
-
-
-export interface AuthingOptions {
+interface AuthingOptions {
     appId: string;
     config: UserConfig | undefined;
 }
 
 export default class Authing implements AuthProviderClass {
-    private authing: typeof AuthingGuard;
+    private authing: AuthingGuard;
     private dispatch: (eventName: string, eventData?: any) => void;
 
     constructor(params: AuthOptions) {
@@ -121,5 +116,4 @@ export default class Authing implements AuthProviderClass {
     public userRoles(user: User): string[] | null {
         return ["admin"];
     }
-
 }
