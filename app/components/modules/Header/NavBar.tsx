@@ -1,24 +1,20 @@
 import { BookOutlined, FormOutlined, HomeOutlined, LoginOutlined, MenuFoldOutlined } from "@ant-design/icons";
-import { Button, Col, Menu, Row, Typography } from "antd";
-import styles from "./NavBar.module.css";
+import { Button, Col, Menu, Row } from "antd";
 import Link from "next/link";
-import React, { useCallback, useState } from "react";
-import smoothScrollTop from "../../../utils/smoothScrollTop";
-import { appName } from "../../../constants/constants";
-import NavDrawer from "./NavDrawer";
+import React, { ReactNode, useCallback, useState } from "react";
 import { useAuth } from "react-use-auth";
-
-import dynamic from 'next/dynamic';
-const AuthingDialog = dynamic(() => import("../Authing/AuthingDialog"), { ssr: false });
+import { appName } from "../../../constants/constants";
+import smoothScrollTop from "../../../utils/smoothScrollTop";
+import styles from "./NavBar.module.css";
+import NavDrawer from "./NavDrawer";
 
 const NavBar: React.FC = () => {
     const [selectedTab, setSelectedTab] = useState<string | null>(null);
     const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
     const [blogPosts, setBlogPosts] = useState([]);
-    const [dialogOpen, setDialogOpen] = useState<string | null>(null);
     const [isCookieRulesDialogOpen, setIsCookieRulesDialogOpen] = useState(false);
 
-    const { isAuthenticated, login, logout } = useAuth();
+    const { isAuthenticated, login, logout, user } = useAuth();
 
     const selectHome = useCallback(() => {
         smoothScrollTop();
@@ -33,24 +29,6 @@ const NavBar: React.FC = () => {
         setSelectedTab("Blog");
     }, [setSelectedTab]);
 
-    const openLoginDialog = useCallback(() => {
-        setDialogOpen("login");
-        setIsMobileDrawerOpen(false);
-    }, [setDialogOpen, setIsMobileDrawerOpen]);
-
-    const closeDialog = useCallback(() => {
-        setDialogOpen(null);
-    }, [setDialogOpen]);
-
-    const openRegisterDialog = useCallback(() => {
-        setDialogOpen("register");
-        setIsMobileDrawerOpen(false);
-    }, [setDialogOpen, setIsMobileDrawerOpen]);
-
-    const openTermsDialog = useCallback(() => {
-        setDialogOpen("termsOfService");
-    }, [setDialogOpen]);
-
     const handleMobileDrawerOpen = useCallback(() => {
         setIsMobileDrawerOpen(true);
     }, [setIsMobileDrawerOpen]);
@@ -58,10 +36,6 @@ const NavBar: React.FC = () => {
     const handleMobileDrawerClose = useCallback(() => {
         setIsMobileDrawerOpen(false);
     }, [setIsMobileDrawerOpen]);
-
-    const openChangePasswordDialog = useCallback(() => {
-        setDialogOpen("changePassword");
-    }, [setDialogOpen]);
 
     const handleCookieRulesDialogOpen = useCallback(() => {
         setIsCookieRulesDialogOpen(true);
@@ -73,8 +47,13 @@ const NavBar: React.FC = () => {
 
 
     const LOGO_URL = 'https://gw.alipayobjects.com/zos/rmsportal/gVAKqIsuJCepKNbgbSwE.svg';
-    const { Title } = Typography;
-    const menuItems = [
+    type MenuItemType = {
+        link?: string,
+        name: string,
+        onClick?: () => void,
+        icon: ReactNode
+    }
+    const menuItems: Array<MenuItemType> = [
         {
             link: "/",
             name: "首页",
@@ -85,18 +64,28 @@ const NavBar: React.FC = () => {
             name: "Blog",
             icon: <BookOutlined />
         },
-        {
+    ];
+    if (isAuthenticated()) {
+        menuItems.push({
+            name: user.username,
+            link: "/pfofile",
+            icon: <LoginOutlined />
+        });
+    }
+    else {
+        menuItems.push({
             name: "注册",
             onClick: login,
             icon: <FormOutlined />
-        },
-        {
-            name: "登录",
-            // link: "/login",
-            onClick: login,
-            icon: <LoginOutlined />
-        }
-    ];
+        });
+        menuItems.push(
+            {
+                name: "登录",
+                onClick: login,
+                icon: <LoginOutlined />
+            }
+        );
+    }
     const menu = (
         <Menu mode="horizontal" >
             {menuItems.map(element => {
@@ -123,11 +112,11 @@ const NavBar: React.FC = () => {
     );
     return (
         <div className={styles.header} >
-            <AuthingDialog
+            {/* <AuthingDialog
                 dialogOpen={dialogOpen}
                 title={appName}
                 closeDialog={closeDialog}
-            />
+            /> */}
             <Row>
                 {/* 图标及app名称*/}
                 <Col xxl={4} xl={5} lg={8} md={8} sm={20} xs={20}>
