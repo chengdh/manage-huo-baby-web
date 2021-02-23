@@ -51,72 +51,114 @@ const NavBar: React.FC = () => {
         link?: string,
         name: string,
         onClick?: () => void,
+        subMenuItems?: Array<MenuItemType>,
         icon: ReactNode
     }
-    const menuItems: Array<MenuItemType> = [
-        {
-            link: "/",
-            name: "首页",
-            icon: <HomeOutlined />
-        },
-        {
-            link: "/blog",
-            name: "Blog",
-            icon: <BookOutlined />
-        },
-    ];
-    if (isAuthenticated()) {
-        menuItems.push({
-            name: user.username,
-            link: "/pfofile",
-            icon: <LoginOutlined />
-        });
-    }
-    else {
-        menuItems.push({
-            name: "注册",
-            onClick: login,
-            icon: <FormOutlined />
-        });
-        menuItems.push(
+
+
+    function getMenuItems(): React.ReactElement{
+        const menuItems: Array<MenuItemType> = [
             {
-                name: "登录",
+                link: "/",
+                name: "首页",
+                icon: <HomeOutlined />
+            },
+            {
+                link: "/blog",
+                name: "Blog",
+                icon: <BookOutlined />
+            },
+        ];
+        if (isAuthenticated()) {
+            const subMenuitems: Array<MenuItemType> = [
+                {
+                    name: "个人中心",
+                    link: "/pfofile",
+                    icon: <LoginOutlined />
+                },
+                {
+                    name: "订单管理",
+                    link: "/orders",
+                    icon: <LoginOutlined />
+                },
+                {
+                    name: "退出",
+                    onClick: logout,
+                    icon: <LoginOutlined />
+                }
+            ];
+            menuItems.push({
+                name: user.username,
+                icon: <LoginOutlined />,
+                subMenuItems: subMenuitems
+            });
+        }
+        else {
+            menuItems.push({
+                name: "注册",
                 onClick: login,
-                icon: <LoginOutlined />
-            }
-        );
-    }
-    const menu = (
-        <Menu mode="horizontal" >
-            {menuItems.map(element => {
-                if (element.link) {
+                icon: <FormOutlined />
+            });
+            menuItems.push(
+                {
+                    name: "登录",
+                    onClick: login,
+                    icon: <LoginOutlined />
+                }
+            );
+        }
+
+
+        const menu = (
+            <Menu mode="horizontal" >
+                {menuItems.map(element => {
+                    if (element.link) {
+                        return (
+                            <Menu.Item key={element.name} className={styles.menuitem}>
+                                <Link href={element.link} >
+                                    <a onClick={handleMobileDrawerClose}>{element.name}</a>
+                                </Link>
+                            </Menu.Item>
+                        );
+                    }
+                    else if (element.subMenuItems) {
+                        return (
+                            <Menu.SubMenu key={element.name} icon={element.icon} title={element.name}>
+                                {element.subMenuItems.map(subElement => {
+                                    if (subElement.link) {
+                                        return (
+                                            <Menu.Item key={subElement.name} className={styles.menuitem}>
+                                                <Link href={subElement.link} >
+                                                    <a onClick={handleMobileDrawerClose}>{subElement.name}</a>
+                                                </Link>
+                                            </Menu.Item>
+                                        );
+                                    }
+                                    return (<Menu.Item key={subElement.name} className={styles.menuitem}>
+                                        <Button type="link" onClick={subElement.onClick}>
+                                            {subElement.name}
+                                        </Button>
+                                    </Menu.Item>)
+                                })
+                                }
+                            </Menu.SubMenu>
+                        );
+                    }
                     return (
                         <Menu.Item key={element.name} className={styles.menuitem}>
-                            <Link href={element.link} >
-                                <a onClick={handleMobileDrawerClose}>{element.name}</a>
-                            </Link>
+                            <Button type="primary" shape="round" onClick={element.onClick}>
+                                {element.name}
+                            </Button>
                         </Menu.Item>
                     );
-                }
-                return (
+                })}
+            </Menu>
 
-                    <Menu.Item key={element.name} className={styles.menuitem}>
-                        <Button type="primary" shape="round" onClick={element.onClick}>
-                            {element.name}
-                        </Button>
-                    </Menu.Item>
-                );
-            })}
-        </Menu>
-
-    );
+        );
+        return menu;
+    }
     return (
         <div className={styles.header} >
-            {/* <AuthingDialog
-                dialogOpen={dialogOpen}
-                title={appName}
-                closeDialog={closeDialog}
-            /> */}
             <Row>
                 {/* 图标及app名称*/}
                 <Col xxl={4} xl={5} lg={8} md={8} sm={20} xs={20}>
@@ -138,17 +180,17 @@ const NavBar: React.FC = () => {
                     </div>
                 </Col>
                 <Col xxl={20} xl={19} lg={16} md={16} sm={0} xs={0}>
-                    <div className={styles.menu}>{menu}</div>
+                    <div className={styles.menu}>{getMenuItems()}</div>
                 </Col>
             </Row>
-            <div>
+            {/* <div>
                 <NavDrawer
-                    menuItems={menuItems}
+                    menuItems={getMenuItems()}
                     visible={isMobileDrawerOpen}
                     selectedItem={selectedTab}
                     onClose={handleMobileDrawerClose}
                 />
-            </div>
+            </div> */}
         </div>
     );
 }

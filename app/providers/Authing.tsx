@@ -11,6 +11,9 @@ interface AuthingOptions {
 }
 
 export default class Authing implements AuthProviderClass {
+
+    public Ready: Promise<any>;
+
     private expiresInSeconds: number = 1209600; //过期时间设为14天
     private authing;
 
@@ -20,18 +23,22 @@ export default class Authing implements AuthProviderClass {
     private dispatch: (eventName: string, eventData?: any) => void;
 
     constructor(params: AuthOptions) {
+        console.log("constructor");
         this.dispatch = params.dispatch;
         const { appId, config } = params as AuthingOptions;
-        this.importAuthingGuard(appId, config);
+        this.Ready = this.importAuthingGuard(appId, config);
     }
 
     private async importAuthingGuard(appId: string, config: any | undefined) {
         //NOTE 使用动态加载,否则会出现ssr错误
         const AuthingGuard = (await import("@authing/native-js-ui-components")).AuthingGuard;
         this.authing = new AuthingGuard(appId, config);
+        console.log("import AuthingGuard");
 
         const AuthenticationClient = (await import("authing-js-sdk")).AuthenticationClient;
         this.authingClient = new AuthenticationClient({ appId });
+
+        console.log("import AuthenticationClient");
 
         //注册成功
         //注册失败
@@ -46,7 +53,8 @@ export default class Authing implements AuthProviderClass {
         this.authing.on("login", async (user: any) => {
             console.log("login success");
             // const retuser = await this.authingClient.loginByUsername(user.username,user.password);
-            const ret = await this.authingClient.checkLoginStatus(user.token)
+            // const ret = await this.authingClient.checkLoginStatus(user.token)
+            const ret = await this.authingClient.getCurrentUser()
             console.log(ret);
             this.dispatch("AUTHENTICATED", {
                 user,
@@ -84,8 +92,9 @@ export default class Authing implements AuthProviderClass {
     }
 
     // Logs user out on the underlying service
-    public logout(returnTo?: string) {
-        this.authingClient.logout();
+    public async logout(returnTo?: string) {
+        this.dispatch("LOGOUT");
+        return this.Ready.then(async () => { await this.authingClient.logout(); });
     }
 
     // Handles login after redirect back from service
@@ -102,21 +111,23 @@ export default class Authing implements AuthProviderClass {
         user: any;
         authResult: any;
     }> {
-        console.log("checkSession");
+        return this.Ready.then(async () => {
+            console.log("checkSession");
 
-        const user = await this.authingClient.getCurrentUser();
+            const user = await this.authingClient.getCurrentUser();
 
-        console.log(user);
-        if (user) {
-            return {
-                user,
-                authResult: {
-                    expiresIn: this.expiresInSeconds
-                }
-            };
-        } else {
-            throw new Error("Session invalid");
-        }
+            console.log(user);
+            if (user) {
+                return {
+                    user,
+                    authResult: {
+                        expiresIn: this.expiresInSeconds
+                    }
+                };
+            } else {
+                throw new Error("Session invalid");
+            }
+        })
     }
 
     // Returns the userId from NetlifyIdentity shape of data

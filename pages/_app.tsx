@@ -6,19 +6,21 @@ import React from 'react';
 import { AuthConfig } from "react-use-auth";
 import { appId } from "../app/constants/constants";
 import Authing from "../app/providers/Authing";
-const HmbApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
+const HmbApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter();
   return (
-    <AuthConfig
-      authProvider={Authing as any}
-      navigate={url => router.push(url)}
-      params={{ appId }}
-    >
+    <>
+      <AuthConfig
+        authProvider={Authing as any}
+        navigate={url => router.push(url)}
+        params={{ appId }}
+      />
       <LayoutTree
         Component={Component}
-        pageProps={pageProps} />
-    </AuthConfig>
+        pageProps={pageProps} >
+      </LayoutTree>
+    </>
   )
 };
 
