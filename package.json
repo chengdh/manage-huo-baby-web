@@ -14,6 +14,7 @@
     "@chengdh/next-layout": "2.2.3",
     "antd": "^4.11.2",
     "authing-js-sdk": "^4.11.4",
+    "deepmerge": "^4.2.2",
     "graphql": "^15.5.0",
     "next": "^10.0.5",
     "rc-queue-anim": "^1.8.5",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
+    "@types/lodash": "^4.14.168",
     "@types/node": "^12.7.4",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^16.9.0",
