@@ -123,7 +123,7 @@ const NavBar: React.FC = () => {
                     }
                     else if (element.subMenuItems) {
                         return (
-                            <Menu.SubMenu key={element.name} icon={element.icon} title={element.name}>
+                            <Menu.SubMenu key={element.name} title={element.name}>
                                 {element.subMenuItems.map(subElement => {
                                     if (subElement.link) {
                                         return (
@@ -135,9 +135,9 @@ const NavBar: React.FC = () => {
                                         );
                                     }
                                     return (<Menu.Item key={subElement.name} className={styles.menuitem}>
-                                        <Button type="link" onClick={subElement.onClick}>
+                                        <a href="#" onClick={subElement.onClick}>
                                             {subElement.name}
-                                        </Button>
+                                        </a>
                                     </Menu.Item>)
                                 })
                                 }

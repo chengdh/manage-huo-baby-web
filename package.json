@@ -9,10 +9,14 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.4.0",
+    "@apollo/react-hooks": "^4.0.0",
     "@authing/native-js-ui-components": "^2.2.3",
     "@chengdh/next-layout": "2.2.3",
     "antd": "^4.11.2",
+    "apollo-boost": "^0.4.9",
+    "apollo-link-ws": "^1.0.20",
     "authing-js-sdk": "^4.11.4",
+    "graphql": "^15.5.0",
     "next": "^10.0.5",
     "rc-queue-anim": "^1.8.5",
     "rc-scroll-anim": "^2.7.6",
@@ -20,7 +24,8 @@
     "react": "^17.0.1",
     "react-document-title": "^2.0.3",
     "react-dom": "^17.0.1",
-    "react-use-auth": "^2.1.0-14"
+    "react-use-auth": "^2.1.0-14",
+    "subscriptions-transport-ws": "^0.9.18"
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
