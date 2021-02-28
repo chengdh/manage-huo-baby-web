@@ -1,6 +1,8 @@
+import { ToTopOutlined } from '@ant-design/icons';
+import { gql, useQuery } from '@apollo/client';
 import { Col, Row } from 'antd';
 import QueueAnim from 'rc-queue-anim';
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import styles from "./FeatureSection.module.css";
 
 const featuresCN = [
@@ -77,6 +79,14 @@ const pointPos = [
     { x: 35, y: 5 },
     { x: 50, y: 50, opacity: 0.2 },
 ];
+const GET_TODOS = gql`
+query MyTodos {
+    todos {
+      title
+      content
+      is_done
+    }
+  }`;
 
 const FeatureSection: React.FC = () => {
     const [hoverNum, setHoverNum] = useState<number | null>(null);
@@ -113,12 +123,12 @@ const FeatureSection: React.FC = () => {
                             '0 6px 12px'} ${item.shadowColor}`,
                     }}
                 >
-                    <img 
+                    <img
                         key={`feature-image-${i}`}
                         className={styles.featureImage} src={item.src} alt="img" style={i === 4 ? { marginLeft: -15 } : {}} />
                 </div>
                 <h3 key={`feature-title-${i}`} className={styles.featureTitle}>{item.title}</h3>
-                <p  key={`feature-subtitle-${i}`} className={styles.featureSubtitle}>{item.content}</p>
+                <p key={`feature-subtitle-${i}`} className={styles.featureSubtitle}>{item.content}</p>
             </div>
         );
     });
@@ -138,17 +148,32 @@ const FeatureSection: React.FC = () => {
             </Col >
         );
     });
+    const { loading, error, data } = useQuery(GET_TODOS);
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+    if (error) {
+        console.error(error);
+        return <div>Error!</div>;
+    }
+    const todos: ReactNode[] = data.todos.map((todo, i) => {
+        return (<>
+            <h2>{todo.title}</h2>
+            <p>{todo.content}</p>
+        </>)
+    });
     return (
         <div className={styles.featureSectionWrapper}>
-            <h2 className={styles.title}>What can <span>Pro</span> do for you </h2>
+            {/* <h2 className={styles.title}>What can <span>Pro</span> do for you </h2>
             <div className={styles.titleLineWrapper}>
                 <div className={styles.titleLine} />
             </div>
-
             <Row >
                 {childrenWithAnims}
-            </Row >
+            </Row > */}
+            {todos}
         </div>
+
     );
 }
 
