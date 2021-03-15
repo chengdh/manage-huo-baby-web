@@ -1,7 +1,7 @@
 /* 容器 */
 
 .featureSectionWrapper {
-    height: 960px;
+    margin-top: 50px;
 }
 
 /* 标题 */
@@ -24,7 +24,6 @@
 .titleLine {
     animation: featureTitleLine 3s ease-in-out 1.5s infinite;
     width: 64px;
-    height: 100%;
     background: linear-gradient(90deg, rgba(24, 144, 255, 0) 0, #1890ff);
     transform: translateX(-64px);
 }

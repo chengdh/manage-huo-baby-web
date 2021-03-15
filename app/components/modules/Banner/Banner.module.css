@@ -1,29 +1,31 @@
 .bannerWrapper {
     height: 526px;
     width: 100%;
-    max-width: 1500px;
+    /* max-width: 1500px; */
     margin-top: 30px;
 }
 
 .bannerTitleWrapper {
     height: 324px;
-    margin-left: 20%;
+    text-align: center;
+    /* margin-left: 20%; */
 }
 
 .title {
     font-family: "Futura", "Helvetica Neue For Number", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 54px;
+    font-size: 24px;
     margin: 12px 0;
 }
 
 .subtitle {
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .buttonWrapper {
     margin-top: 64px;
     line-height: 40px;
     align-items: center;
+    justify-content: center;
     display: flex;
 }
 
@@ -37,7 +39,7 @@
 
 .bannerImageWrapper {
     height: 324px;
-    margin-right: 8%; 
+    /* margin-right: 8%;  */
     opacity: 0;
 }
 
